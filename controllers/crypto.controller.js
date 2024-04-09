@@ -18,7 +18,7 @@ const getPrice = async (req, res , next )=> {
         const {startDate ,endDate} = getTimeInterval(date);
 
         const response = await axios.get(`https://api.coingecko.com/api/v3/coins/${fromCurrency}/market_chart/range?vs_currency=${toCurrency}&from=${startDate}&to=${endDate}`);
-        console.log(response);
+        
         
 
         
