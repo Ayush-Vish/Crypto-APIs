@@ -5,13 +5,15 @@ import { connectToDB } from "./config/mongo.config.js";
 import { fetchAndStoreCryptoList } from "./controllers/fetchAndStore.controller.js";
 import errorMiddleware from "./middlewares/error.niddleware.js";
 import cryptoRoutes from "./routes/crypto.routes.js";
+import morgan from "morgan";
 
 const app = express();
 dotenv.config();
 connectToDB();
 
 // cron.schedule("0 * * * * *", fetchAndStoreCryptoList);
-
+app.use(express.json());
+app.use(morgan("dev"));
 app.use("/api/v1/crypto", cryptoRoutes);
 
 app.use(errorMiddleware);
