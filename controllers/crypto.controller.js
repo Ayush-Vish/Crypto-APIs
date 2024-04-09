@@ -8,12 +8,12 @@ const getPrice = async (req, res , next )=> {
         const { fromCurrency, toCurrency, date } = req.query;
         const {startDate ,endDate} = getTimeInterval(date);
 
-        const response = await axios.get(`https://api.coingecko.com/api/v3/coins/${id}/market_chart/range?vs_currency=${toCurrency}&from=${startDate}&to=${endDate}`);
+        const response = await axios.get(`https://api.coingecko.com/api/v3/coins/${fromCurrency}/market_chart/range?vs_currency=${toCurrency}&from=${startDate}&to=${endDate}`);
         console.log(response);
         
 
       
-        return new ApiResponse(res, 200, "Price fetched successfully", {data : res.data});  
+        return new ApiResponse(res, 200, "Price fetched successfully", {data : response.data});  
 
     } catch (error) {
         return next(new Apperror(error.message , 400));
