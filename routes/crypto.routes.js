@@ -1,10 +1,11 @@
 import express from "express";
+import { getPrice } from "../controllers/crypto.controller.js";
 
 
 const router = express.Router();
 
 
-router.use("/")
+router.get("/price", getPrice);
 
 
 

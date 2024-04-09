@@ -12,7 +12,7 @@ connectToDB();
 
 // cron.schedule("0 * * * * *", fetchAndStoreCryptoList);
 
-
+app.use("/api/v1/crypto", cryptoRoutes);
 
 app.use(errorMiddleware);
 
