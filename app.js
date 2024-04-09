@@ -16,6 +16,14 @@ app.use(express.json());
 app.use(morgan("dev"));
 app.use("/api/v1/crypto", cryptoRoutes);
 
+
+app.use("*", (req, res) => {
+    return res.status(404).json({
+        statusCode: 404,
+        message: "OOPS ! Page not found"
+    });
+})
+
 app.use(errorMiddleware);
 
 
