@@ -6,6 +6,7 @@ import errorMiddleware from "./middlewares/error.middleware.js";
 import cryptoRoutes from "./routes/crypto.routes.js";
 import morgan from "morgan";
 import { Worker } from "worker_threads";
+import Apperror from "./utils/ApiError.util.js";
 
 const app = express();
 const cryptoWorker = new Worker("./Workers/StoreCryptoListWorker.js");
