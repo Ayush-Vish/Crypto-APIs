@@ -30,7 +30,7 @@ cryptoWorker.on("message", (message) => {
 });
 
 cryptoWorker.on("error", (error) => {
-    return next (new Apperror(error.message, 400));
+    throw (new Apperror(error.message, 400));
 });
 
 app.use(errorMiddleware);
