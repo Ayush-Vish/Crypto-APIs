@@ -29,7 +29,6 @@ const getPrice = async (req, res, next) => {
       return next(new Apperror("Date must be in the format MM-DD-YYYY", 400));
     }
     const { startDate, endDate } = getTimeInterval(date);
-    console.log(startDate, endDate);
 
     const response = await axios.get(
       `https://api.coingecko.com/api/v3/coins/${fromCurrency}/market_chart/range?vs_currency=${toCurrency}&from=${startDate}&to=${endDate}`
@@ -86,7 +85,8 @@ const getCompaniesHoldingCrypto = async (req, res, next) => {
       const companies = response?.data?.companies;
       companyName = companies.map((company) => company.name);
     } catch (error) {
-      console.log(error.mess);
+      return next(new Apperror("Error Fetching API", 400));
+      
     }
 
     return new ApiResponse(

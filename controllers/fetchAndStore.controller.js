@@ -6,22 +6,24 @@ export const fetchAndStoreCryptoList = async () => {
     try {
       const response = await axios.get('https://api.coingecko.com/api/v3/coins/list');
       if (!response.data) {
-        console.log('No data received from API');
         throw new Apperror('No data received from API', 400);
       }
       const cryptoList = response.data;
-      console.log('Received data from API:', cryptoList);
-      
       const bulkOps = cryptoList.map((item) => ({
         updateOne: {
           filter: { id: item.id },
-          update: { $set: item },
+          update: { $set: {
+            id: item.id,
+            symbol: item.symbol,
+            name: item.name,
+          } },
           upsert: true,
         },
       }));
 
-      await CryptoCurrency.bulkWrite(bulkOps);
+      const a= await CryptoCurrency.bulkWrite(bulkOps);
   } catch (error) {
-    throw new Apperror(error.message, 400);
+    console.log(error)
+    console.log("Eror", error.message )
   }
 };
