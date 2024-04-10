@@ -56,8 +56,10 @@ This endpoint retrieves the price of a specific cryptocurrency in a specific cur
 
 ### Sample Request (BASE_URL = http://localhost:3000/api/v1/crypto)
 
+### The 2024 Dates are working in the free version.
+
 ```bash
-    GET /price?fromCurrency=bitcoin&toCurrency=usd&date=01-01-2023
+    GET /price?fromCurrency=bitcoin&toCurrency=usd&date=01-01-2024
 ```
 
 
