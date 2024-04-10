@@ -2,7 +2,12 @@
 
 ### This is the backend of the KoinX backend Developer Assignment
 
+- Live Link : https://koinx-backend-two.vercel.app/
+- Postman collection : https://elements.getpostman.com/redirect?entityId=28606222-263b0920-bf26-4d3e-b8e5-a1bfb4f350ec&entityType=collection
+
+
 ## Installation
+
 
 Follow these steps to install and run the project:
 
