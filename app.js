@@ -16,9 +16,16 @@ connectToDB();
 
 app.use(express.json());
 app.use(morgan("dev"));
-cron.schedule("0 * * * *", fetchAndStoreCryptoList);
 
 app.use("/api/v1/crypto", cryptoRoutes);
+cron.schedule("0 * * * *",async ()=> {
+    try {
+        await fetchAndStoreCryptoList();
+    } catch (error) {
+        throw new Apperror(error.message, 400);
+        
+    }
+});
 
 
 app.use("*", (req, res) => {
