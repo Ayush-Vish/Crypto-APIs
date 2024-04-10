@@ -26,13 +26,17 @@ const getPrice = async (req, res, next) => {
     const datePattern = /^\d{2}-\d{2}-\d{4}$/;
 
     if (!datePattern.test(date)) {
-      return next(new Apperror("Date must be in the format MM-DD-YYYY", 400));
+      return next(new Apperror("Date must be in the format DD-MM-YYYY", 400));
     }
     const { startDate, endDate } = getTimeInterval(date);
 
     const response = await axios.get(
       `https://api.coingecko.com/api/v3/coins/${fromCurrency}/market_chart/range?vs_currency=${toCurrency}&from=${startDate}&to=${endDate}`
     );
+      
+    if(response.status !== 200){
+      return next(new Apperror(await response.data, 400));
+    }
     const prices = response.data.prices;
     const averagePrice =
       prices.reduce((sum, [_, price]) => sum + price, 0) / prices.length;
