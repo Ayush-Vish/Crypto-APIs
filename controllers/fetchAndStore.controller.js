@@ -20,7 +20,7 @@ export const fetchAndStoreCryptoList = async () => {
           upsert: true,
         },
       }));
-t
+
       const a= await CryptoCurrency.bulkWrite(bulkOps);
   } catch (error) {
     console.log(error)
