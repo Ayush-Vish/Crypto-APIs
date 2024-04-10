@@ -1,4 +1,3 @@
-import cron from "node-cron";
 import express from "express";
 import dotenv from "dotenv";
 import { connectToDB } from "./config/mongo.config.js";
@@ -6,12 +5,14 @@ import { fetchAndStoreCryptoList } from "./controllers/fetchAndStore.controller.
 import errorMiddleware from "./middlewares/error.middleware.js";
 import cryptoRoutes from "./routes/crypto.routes.js";
 import morgan from "morgan";
+import { Worker } from "worker_threads";
 
 const app = express();
+const cryptoWorker = new Worker("./Workers/StoreCryptoListWorker.js");
+
 dotenv.config();
 connectToDB();
 
-// cron.schedule("0 * * * * *", fetchAndStoreCryptoList);
 app.use(express.json());
 app.use(morgan("dev"));
 app.use("/api/v1/crypto", cryptoRoutes);
@@ -23,6 +24,14 @@ app.use("*", (req, res) => {
         message: "OOPS ! Page not found"
     });
 })
+
+cryptoWorker.on("message", (message) => {
+    console.log("Message recieved", message);
+});
+
+cryptoWorker.on("error", (error) => {
+    return next (new Apperror(error.message, 400));
+});
 
 app.use(errorMiddleware);
 
