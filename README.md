@@ -54,7 +54,7 @@ Follow these steps to install and run the project:
 
 This endpoint retrieves the price of a specific cryptocurrency in a specific currency for a given date.
 
-### Sample Request (BASE_URL = http://localhost:3000)
+### Sample Request (BASE_URL = http://localhost:3000/api/v1/crypto)
 
 ```bash
     GET /price?fromCurrency=bitcoin&toCurrency=usd&date=01-01-2023

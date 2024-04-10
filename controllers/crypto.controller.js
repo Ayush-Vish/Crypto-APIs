@@ -86,7 +86,6 @@ const getCompaniesHoldingCrypto = async (req, res, next) => {
       companyName = companies.map((company) => company.name);
     } catch (error) {
       return next(new Apperror("Error Fetching API", 400));
-      
     }
 
     return new ApiResponse(
