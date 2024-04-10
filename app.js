@@ -9,13 +9,15 @@ import { Worker } from "worker_threads";
 import Apperror from "./utils/ApiError.util.js";
 
 const app = express();
-const cryptoWorker = new Worker("./Workers/StoreCryptoListWorker.js");
+// const cryptoWorker = new Worker("./Workers/StoreCryptoListWorker.js");
 
 dotenv.config();
 connectToDB();
 
 app.use(express.json());
 app.use(morgan("dev"));
+cron.schedule("0 * * * *", fetchAndStoreCryptoList);
+
 app.use("/api/v1/crypto", cryptoRoutes);
 
 
@@ -26,13 +28,7 @@ app.use("*", (req, res) => {
     });
 })
 
-cryptoWorker.on("message", (message) => {
-    console.log("Message recieved", message);
-});
 
-cryptoWorker.on("error", (error) => {
-    throw (new Apperror(error.message, 400));
-});
 
 app.use(errorMiddleware);
 

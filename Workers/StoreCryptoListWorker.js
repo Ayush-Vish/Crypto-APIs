@@ -7,7 +7,6 @@ if (isMainThread) {
     throw new Apperror('This script should be run as a worker thread', 400);
 }
 
-cron.schedule("0 * * * *", fetchAndStoreCryptoList);
 
 process.on('uncaughtException', (err) => {
     console.error('Uncaught Exception in worker thread:', err);
